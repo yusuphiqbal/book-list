@@ -39,6 +39,34 @@ class UI {
   }
 }
 
+class Store {
+  static displayBooks() {
+
+  }
+
+  static getBooks() {
+    let books;
+
+    if (localStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+
+    return books;
+  }
+
+  static addBook(book) {
+    const books = Store.getBooks();
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  static removeBook() {
+
+  }
+}
+
 document.getElementById('book-form').addEventListener('submit', function (e) {
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
@@ -50,6 +78,7 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
     ui.showAlert('Please fill in all the fields.', 'error');
   } else {
     ui.addBookToList(book);
+    Store.addBook(book);
     ui.showAlert('Book added.', 'success');
     ui.clearFields();
   }
@@ -57,7 +86,7 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
   e.preventDefault();
 });
 
-document.getElementById('book-list').addEventListener('click', function(e) {
+document.getElementById('book-list').addEventListener('click', function (e) {
   const ui = new UI();
   ui.deleteBook(e.target);
   ui.showAlert('Book removed.', 'success');
