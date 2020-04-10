@@ -42,6 +42,7 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
     ui.showAlert('Please fill in all the fields.', 'error');
   } else {
     ui.addBookToList(book);
+    ui.showAlert('Book added.', 'success');
     ui.clearFields();
   }
 
