@@ -11,3 +11,11 @@
 .error {
     background-color: #FF3562;
 }
+
+a {
+    text-decoration: none;
+}
+
+.delete {
+    color: #FF3562;
+}
