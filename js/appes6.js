@@ -42,7 +42,7 @@ class UI {
 class Store {
   static displayBooks() {
     const books = Store.getBooks();
-    books.forEach(function(book) {
+    books.forEach(function (book) {
       const ui = new UI;
       ui.addBookToList(book);
     });
@@ -66,8 +66,14 @@ class Store {
     localStorage.setItem('books', JSON.stringify(books));
   }
 
-  static removeBook() {
-
+  static removeBook(isbn) {
+    const books = Store.getBooks();
+    books.forEach(function (book, index) {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+    localStorage.setItem('books', JSON.stringify(books));
   }
 }
 
@@ -95,6 +101,7 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
 document.getElementById('book-list').addEventListener('click', function (e) {
   const ui = new UI();
   ui.deleteBook(e.target);
+  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
   ui.showAlert('Book removed.', 'success');
   e.preventDefault();
 });
